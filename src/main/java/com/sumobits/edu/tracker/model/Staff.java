@@ -3,10 +3,12 @@ package com.sumobits.edu.tracker.model;
 import java.io.IOException;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -32,7 +34,7 @@ public class Staff extends Person implements Persistable, ExternalEntity
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_id_seq")
 	@Column(name = "pk", updatable = false)
 	@JsonProperty
-	private Long id;
+	private long id;
 
 	@NotNull
 	@Size(min=10, max=80)
@@ -40,11 +42,17 @@ public class Staff extends Person implements Persistable, ExternalEntity
 	@JsonProperty
 	private String employeeId;
 	
+	@NotNull
+	@ManyToOne
 	@JsonProperty
 	private Campus campus;
 	
+	@Embedded
+	@JsonProperty
+	private Audit audit;
+	
 	@Override
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
@@ -75,9 +83,14 @@ public class Staff extends Person implements Persistable, ExternalEntity
 		this.campus = campus;
 	}
 
-	public void setId(Long id)
+	public Audit getAudit()
 	{
-		this.id = id;
+		return audit;
+	}
+
+	public void setAudit(Audit audit)
+	{
+		this.audit = audit;
 	}
 
 	@Override
@@ -115,4 +128,11 @@ public class Staff extends Person implements Persistable, ExternalEntity
 		
 		return result;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Staff [" + writeObject() + "]";
+	}
+	
 }

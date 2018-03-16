@@ -47,12 +47,13 @@ public class Address
 	private String country;
 
 	@Size(min = 0, max = 80)
-	@Column(name = "latitude", length = 20)
-	@JsonProperty("address_line1")
+	@Column(name = "latitude", length = 80, updatable = true, insertable= true)
+	@JsonProperty("latitude")
 	private Double latitude;
 
 	@Size(min = 0, max = 80)
-	@Column(name = "latitude", length = 80)
+	@Column(name = "longitude", length = 80, updatable = true, insertable= true)
+	@JsonProperty("longitude")
 	private Double longitude;
 
 	public String getLine1()

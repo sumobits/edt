@@ -6,12 +6,14 @@ import org.jvnet.hk2.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.sumobits.edu.tracker.dao.StudentDao;
 import com.sumobits.edu.tracker.model.Campus;
 import com.sumobits.edu.tracker.model.Student;
 
 @Service
+@Component
 public class StudentServiceImpl implements StudentService
 {
 	private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);

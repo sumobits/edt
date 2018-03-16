@@ -1,7 +1,6 @@
 package com.sumobits.edu.tracker.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T>
 	private Class<T> type;
 
 	@Autowired
-	@PersistenceContext(unitName = "com.sumobits.edu.tracker.oltp")
 	protected EntityManager entityManager;
 
 	@Override

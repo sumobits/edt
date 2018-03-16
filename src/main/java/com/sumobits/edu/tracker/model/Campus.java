@@ -36,7 +36,7 @@ public class Campus implements Persistable, ExternalEntity
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "campus_id_seq")
 	@Column(name = "pk", updatable = false)
 	@JsonProperty
-	private Long id;
+	private long id;
 	
 	@NotNull
 	@Size(min=15, max=50)
@@ -60,15 +60,15 @@ public class Campus implements Persistable, ExternalEntity
 	@JsonProperty
 	private String officePhone;
 	
-	@OneToMany
+	@ManyToOne
 	@JsonProperty
 	private Staff principal;
 	
-	@ManyToOne
+	@OneToMany
 	@JsonProperty
 	private Set<Staff> staff;
 	
-	public Long getId()
+	public long getId()
 	{
 		return id;
 	}
@@ -174,4 +174,12 @@ public class Campus implements Persistable, ExternalEntity
 
 		return result;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Campus [" + writeObject() + "]";
+	}
+	
+	
 }

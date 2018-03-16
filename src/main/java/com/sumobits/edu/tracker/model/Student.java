@@ -1,8 +1,10 @@
 package com.sumobits.edu.tracker.model;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +37,7 @@ public class Student extends Person implements Persistable, ExternalEntity
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_id_seq")
 	@Column(name = "pk", updatable = false)
 	@JsonProperty
-	private Long id;
+	private long id;
 
 	@NotNull
 	@Size(min = 10, max = 25)
@@ -46,9 +48,12 @@ public class Student extends Person implements Persistable, ExternalEntity
 	@JoinTable(name = "edt_student_campus", joinColumns= @JoinColumn(referencedColumnName="pk"))
 	@NotNull
 	@JsonProperty
-	private Campus campus;
+	private Set<Campus> campuses;
 
-	public Long getId()
+	@Embedded
+	private Audit audit;
+	
+	public long getId()
 	{
 		return id;
 	}
@@ -68,15 +73,26 @@ public class Student extends Person implements Persistable, ExternalEntity
 		this.studentId = studentId;
 	}
 
-	public Campus getCampus()
+	public Set<Campus> getCampuses()
 	{
-		return campus;
+		return campuses;
 	}
 
-	public void setCampus(Campus campus)
+	public void setCampus(Set<Campus> campuses)
 	{
-		this.campus = campus;
+		this.campuses = campuses;
 	}
+	
+	public Audit getAudit()
+	{
+		return audit;
+	}
+
+	public void setAudit(Audit audit)
+	{
+		this.audit = audit;
+	}
+
 	@Override
 	public Student readObject(String input)
 	{
@@ -111,4 +127,11 @@ public class Student extends Person implements Persistable, ExternalEntity
 		
 		return result;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Student [" + writeObject() + "]";
+	}
+	
 }
